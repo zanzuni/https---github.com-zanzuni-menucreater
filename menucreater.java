@@ -1,7 +1,7 @@
 
 import java.util.Scanner;
 
-public class MENUCREATER {
+public class menucreater {
     public static void main(String[] args) {
 
         Scanner ler = new Scanner(System.in);
@@ -19,7 +19,6 @@ public class MENUCREATER {
             System.out.println("#### 0- sair ####");
 
             System.out.println("#### qual você escolhe ? ####");
-            System.out.print(">");
             menu = ler.nextInt();
 
             if(menu <0 || menu>3) {
@@ -41,7 +40,6 @@ public class MENUCREATER {
                     System.out.println("#### 0 - Voltar  ####");
 
                     System.out.println("#### qual você escolhe ? ####");
-                    System.out.print(">");
                     clientes = ler.nextInt();
 
                     if(clientes <0 || clientes>3) {
