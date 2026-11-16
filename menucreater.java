@@ -69,13 +69,13 @@ public class menucreater {
                             ConsultarClientePorCodigo();
                             break;
                         case 4:
-                            System.out.println("Alterar cliente");
+                            AlterarCliente();
                             break;
                         case 5:
-                            System.out.println("Apagar cliente");
+                            ApagarCliente();
                             break;
                         case 6:
-                            System.out.println("Ordenar por nome");
+                            OrdenarPorNome();
                             break;
                         case 0:
                             System.out.println("Voltando ao menu principal...");
@@ -88,6 +88,7 @@ public class menucreater {
         }while(menu !=0);
 
         System.out.println("######## Obrigado Por Usar Meu Codigo ########");
+        System.out.println("######## Volte Sempre ########");
 
     }
 
@@ -120,62 +121,176 @@ public class menucreater {
 
     public static void ListarClientes() {
 
-        System.out.println("\n--- Lista de Clientes ---");
+        System.out.println("\n######## LISTAR OS CLIENTES ########");
 
-        if (totalClientes == 0) {
+    if (totalClientes == 0) {
 
-            System.out.println("Nenhum cliente cadastrado ainda.");
+        System.out.println("Nenhum cliente cadastrado ainda.");
 
-        } else {
+    } else {
 
-            for (int lin = 0; lin < totalClientes; lin++) {
+        System.out.printf(
+            "%-8s | %-18s | %-12s | %-20s | %-6s | %-15s | %-7s | %-10s%n",
+            campos[0], campos[1], campos[2], campos[3],
+            campos[4], campos[5], campos[6], campos[7]
+        );
 
-                System.out.println("\nCliente " + (lin + 1) + ":");
-
-                for (int col = 0; col < 8; col++) {
-
-                    System.out.println(campos[col] + ": " + lista[lin][col]);
-                    System.out.println("-------------------------\n");
-                }
-            }
-        }
-    }
-
-    public static void ConsultarClientePorCodigo() {
-
-        Scanner ler = new Scanner(System.in);
-
-        System.out.print("Digite o código do cliente: ");
-
-        String codigo = ler.nextLine();
-
-        boolean encontrado = false;
+        System.out.println("---------------------------------------------------------------------------------------------------------------");
 
         for (int lin = 0; lin < totalClientes; lin++) {
-
-            if (lista[lin][0].equals(codigo)) {
-
-                System.out.println("\n=== DADOS DO CLIENTE ===");
-
-                for (int col = 0; col < 8; col++) {
-
-                    System.out.println(campos[col] + ": " + lista[lin][col]);
-                    System.out.println("-------------------------\n");
-                }
-
-                encontrado = true;
-
-                break;
-            }
-        }
-
-        if (!encontrado) {
-
-            System.out.println("Cliente não encontrado.");
+            System.out.printf(
+                "%-8s | %-18s | %-12s | %-20s | %-6s | %-15s | %-7s | %-10s%n",
+                lista[lin][0],
+                lista[lin][1],
+                lista[lin][2],
+                lista[lin][3],
+                lista[lin][4],
+                lista[lin][5],
+                lista[lin][6],
+                lista[lin][7]
+            );
+            System.out.println("---------------------------------------------------------------------------------------------------------------\n");
+          }
         }
     }
 
-   }
+   public static void ConsultarClientePorCodigo() {
 
+    Scanner ler = new Scanner(System.in);
 
+    System.out.println("\n######## CONSULTAR CLIENTE ########");
 
+    System.out.print("\nDigite o código do cliente: ");
+    String codigo = ler.nextLine();
+
+    boolean encontrado = false;
+
+    for (int lin = 0; lin < totalClientes; lin++) {
+
+        if (lista[lin][0].equals(codigo)) {
+
+            System.out.println("\n######## CLIENTE ENCONTRADO ########");
+
+            System.out.printf(
+                "%-8s | %-18s | %-12s | %-20s | %-6s | %-15s | %-7s | %-10s%n",
+                campos[0], campos[1], campos[2], campos[3],
+                campos[4], campos[5], campos[6], campos[7]
+            );
+
+            System.out.println("---------------------------------------------------------------------------------------------------------------");
+
+            System.out.printf(
+                "%-8s | %-18s | %-12s | %-20s | %-6s | %-15s | %-7s | %-10s%n",
+                lista[lin][0],
+                lista[lin][1],
+                lista[lin][2],
+                lista[lin][3],
+                lista[lin][4],
+                lista[lin][5],
+                lista[lin][6],
+                lista[lin][7]
+            );
+
+            encontrado = true;
+
+            break;
+        }
+    }
+
+    if (!encontrado) {
+        System.out.println("Cliente não encontrado.");
+    }
+    System.out.println("---------------------------------------------------------------------------------------------------------------");
+  }
+
+  public static void AlterarCliente() {
+    Scanner ler = new Scanner(System.in);
+
+System.out.println("\n######## ALTERAR CLIENTE ########");
+
+    System.out.print("\nDigite o código do cliente que deseja alterar: ");
+    String codigo = ler.nextLine();
+
+    boolean encontrado = false;
+
+    for (int lin = 0; lin < totalClientes; lin++) {
+
+        if (lista[lin][0].equals(codigo)) {
+
+            System.out.println("\n######## CLIENTE ENCONTRADO ########");
+
+            for (int col = 1; col < 8; col++) {
+                System.out.print("Digite novo " + campos[col] + " (atual: " + lista[lin][col] + "): ");
+                String novoValor = ler.nextLine();
+                if (!novoValor.isEmpty()) {
+                    lista[lin][col] = novoValor;
+                }
+            }
+
+            System.out.println("Cliente alterado com sucesso!");
+            encontrado = true;
+            break;
+        }
+    }
+
+    if (!encontrado) {
+        System.out.println("Cliente não encontrado.");
+    }
+
+  }
+
+public static void ApagarCliente() {
+    Scanner ler = new Scanner(System.in);
+
+    System.out.println("\n######## APAGAR CLIENTE ########");
+
+    System.out.print("\nDigite o código do cliente que deseja apagar: ");
+    String codigo = ler.nextLine();
+
+    boolean encontrado = false;
+
+    for (int lin = 0; lin < totalClientes; lin++) {
+
+        if (lista[lin][0].equals(codigo)) {
+        
+            for (int i = lin; i < totalClientes - 1; i++) {
+                lista[i] = lista[i + 1];
+            }
+
+            lista[totalClientes - 1] = new String[8];
+
+            totalClientes--;
+            System.out.println("Cliente apagado com sucesso!");
+            encontrado = true;
+            break;
+        }
+    }
+
+    if (!encontrado) {
+        System.out.println("Cliente não encontrado.");
+    }
+  }
+
+  public static void OrdenarPorNome() {
+    if (totalClientes == 0) {
+        System.out.println("Nenhum cliente cadastrado para ordenar.");
+        return;
+    }
+
+    for (int i = 0; i < totalClientes - 1; i++) {
+        for (int j = 0; j < totalClientes - i - 1; j++) {
+            if (lista[j][1].compareToIgnoreCase(lista[j + 1][1]) > 0) {
+                String[] temp = lista[j];
+                lista[j] = lista[j + 1];
+                lista[j + 1] = temp;
+            }
+        }
+    }
+
+    System.out.println("Clientes ordenados por nome com sucesso!");
+  }
+
+  public static void GerenciarContatos() {
+    // Implementar a lógica para gerenciar contatos
+  }
+}
