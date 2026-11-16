@@ -5,6 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "menucreater",
+            "request": "launch",
+            "mainClass": "menucreater",
+            "projectName": "menucreater_a2a68490"
+        },
+        {
             "type": "jdk",
             "request": "launch",
             "name": "Launch Java App"

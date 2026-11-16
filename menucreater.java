@@ -85,6 +85,10 @@ public class menucreater {
                 }while(clientes !=0);
             }
 
+            if(menu == 2) {
+                GerenciarContatos();
+            }
+
         }while(menu !=0);
 
         System.out.println("######## Obrigado Por Usar Meu Codigo ########");
@@ -206,7 +210,7 @@ public class menucreater {
   public static void AlterarCliente() {
     Scanner ler = new Scanner(System.in);
 
-System.out.println("\n######## ALTERAR CLIENTE ########");
+ System.out.println("\n######## ALTERAR CLIENTE ########");
 
     System.out.print("\nDigite o código do cliente que deseja alterar: ");
     String codigo = ler.nextLine();
@@ -291,6 +295,100 @@ public static void ApagarCliente() {
   }
 
   public static void GerenciarContatos() {
-    // Implementar a lógica para gerenciar contatos
-  }
+Scanner ler = new Scanner(System.in);
+
+static int totalContatos = 0;
+
+    String[][] contatos = new String[100][5];
+
+    String[] contatos = {
+        "Código", "cliente", "Tipo", "valor", "Status"
+     };
+
+                do{
+                    System.out.println("#### 1 - Incluir contato ####");
+                    System.out.println("#### 2 - Listar contatos (todos os clientes)  ####");
+                    System.out.println("#### 3 - Consultar contato de um cliente ####");
+                    System.out.println("#### 4 - Alterar contato  ####");
+                    System.out.println("#### 5 - Apagar contato  ####");
+                    System.out.println("#### 0 - Voltar  ####");
+
+                    System.out.println("#### qual você escolhe ? ####");
+                    clientes = ler.nextInt();
+
+                    if(clientes <0 || clientes>6) {
+                        System.out.println("#### numero incorreto ####");
+                        System.out.println("\n#############");
+                        
+                    }
+                    switch(clientes) {
+                        case 1:
+                            IncluirContato();
+                            break;
+                        case 2:
+                            ListarContatos();
+                            break;
+                        case 3:
+                            ConsultarContatoPorCodigo();
+                            break;
+                        case 4:
+                            AlterarContato();
+                            break;
+                        case 5:
+                            ApagarContato();
+                            break;
+                        case 0:
+                            System.out.println("Voltando ao menu principal...");
+                            break;
+                    }
+
+                }while(clientes !=0);
+            }
+
+            public static void IncluirContato() {
+                Scanner ler = new Scanner(System.in);
+
+                System.out.println("####### Incluir contato ########");
+
+                System.out.print("Digite o código do cliente para o qual deseja adicionar um contato: ");
+                String codigoCliente = ler.nextLine();
+
+                for(int lin = 0; lin < lista.length; lin++) {
+                    if (lista[lin][0].equals(codigoCliente)) {
+                        if (totalContatos < contatos.length) {
+                            System.out.println("\n--- Cadastrando Contato " + (totalContatos + 1) + " ---");
+
+                            for (int col = 0; col < 5; col++) {
+                                System.out.print("Digite " + campos[col]);
+                                contatos[totalContatos][col] = ler.nextLine();
+                            }
+
+                            totalContatos++;
+                            System.out.println("Contato cadastrado com sucesso!");
+                        } else {
+                            System.out.println("Limite máximo de contatos atingido!");
+                        }
+                        return;
+                    }
+                }
+                System.out.println("Cliente não encontrado!");
+            }
+
+            public static void ListarContatos() {
+                Scanner ler = new Scanner(System.in);
+            }
+
+            public static void ConsultarContatoPorCodigo() {
+                Scanner ler = new Scanner(System.in);
+            }
+
+            public static void AlterarContato() {
+                
+            }
+
+            public static void ApagarContato() {
+                
+            }
+
 }
+
