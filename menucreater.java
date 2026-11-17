@@ -22,7 +22,7 @@ public class menucreater {
     static String[][] contatos = new String[10][5];
 
     static String[] camposContatos = {
-        "Código", "cliente", "Tipo(whatsapp,telefone,email,linkedin,instagram,site,outro)", "contrato/redesocial", "Status"
+        "Código", "cliente", "Tipo", "valor", "Status"
      };
 
     public static void main(String[] args) {
@@ -262,7 +262,7 @@ public class menucreater {
 
   }
 
-public static void ApagarCliente() {
+ public static void ApagarCliente() {
     Scanner ler = new Scanner(System.in);
 
     System.out.println("\n######## APAGAR CLIENTE ########");
@@ -319,11 +319,11 @@ public static void ApagarCliente() {
     System.out.println("Clientes ordenados por nome com sucesso!");
 
     ListarClientes();
-}
+ }
 
 
   public static void GerenciarContatos() {
-Scanner ler = new Scanner(System.in);
+  Scanner ler = new Scanner(System.in);
 
 
                 do{
