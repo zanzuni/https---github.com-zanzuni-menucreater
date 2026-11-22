@@ -127,12 +127,13 @@ public class menucreater {
             System.out.println("#### 4 - Alterar cliente ####");
             System.out.println("#### 5 - Apagar cliente ####");
             System.out.println("#### 6 - Ordenar clientes por nome ####");
+            System.out.println("#### 7 - pesquisar cliente por nome ####"); 
             System.out.println("#### 0 - Voltar ####");
 
             System.out.println("#### qual você escolhe ? ####");
             clientes = ler.nextInt();
 
-            if(clientes <0 || clientes>6) {
+            if(clientes <0 || clientes>7) {
                 System.out.println("#### numero incorreto ####");
                 System.out.println("\n#############");
                 
@@ -155,6 +156,9 @@ public class menucreater {
                     break;
                 case 6:
                     OrdenarClientesPorNome();
+                    break;
+                case 7:
+                    PesquisarClientePorNome();
                     break;
                 case 0:
                     System.out.println("Voltando ao menu principal...");
@@ -406,12 +410,13 @@ public class menucreater {
                     System.out.println("#### 3 - Consultar contato de um cliente ####");
                     System.out.println("#### 4 - Alterar contato  ####");
                     System.out.println("#### 5 - Apagar contato  ####");
+                    System.out.println("#### 6 - Listar contato por tipo ####");
                     System.out.println("#### 0 - Voltar  ####");
 
                     System.out.println("#### qual você escolhe ? ####");
                     clientes = ler.nextInt();
 
-                    if(clientes <0 || clientes>6) {
+                    if(clientes <0 || clientes>7) {
                         System.out.println("#### numero incorreto ####");
                         System.out.println("\n#############");
                         
@@ -431,6 +436,9 @@ public class menucreater {
                             break;
                         case 5:
                             ApagarContato();
+                            break;
+                        case 7:
+                            PesquisarClientePorNome();
                             break;
                         case 0:
                             System.out.println("Voltando ao menu principal...");
@@ -595,6 +603,85 @@ public class menucreater {
                 }
                 System.out.println("Contato não encontrado!");
                 ler.close();
+            }
+
+            public static void ListarContatosPorTipo() {
+                Scanner ler = new Scanner(System.in);
+
+                System.out.println("\n######## LISTAR CONTATOS POR TIPO ########");
+
+                ListarContatosTabela();
+
+                System.out.print("\nDigite o tipo de contato que deseja listar: ");
+                String tipoPesquisa = ler.nextLine();
+
+                boolean encontrado = false;
+
+                for (int i = 0; i < totalContatos; i++) {
+
+                    if (contatos[i][2].equalsIgnoreCase(tipoPesquisa)) {
+
+                        System.out.printf(
+                            "%-8s | %-18s | %-12s | %-20s | %-6s%n",
+                            camposContatos[0], camposContatos[1], camposContatos[2], camposContatos[3], camposContatos[4]
+                        );
+                        System.out.println("-------------------------------------------------------------");
+                        System.out.printf(
+                            "%-8s | %-18s | %-12s | %-20s | %-6s%n",
+                            contatos[i][0], contatos[i][1], contatos[i][2], contatos[i][3], contatos[i][4]
+                        );
+                        encontrado = true;
+                    }
+                }
+
+                if (!encontrado) {
+                    System.out.println("Nenhum contato encontrado com o tipo informado.");
+                }
+            }
+
+            public static void PesquisarClientePorNome() {
+                Scanner ler = new Scanner(System.in);
+
+                System.out.println("\n######## PESQUISAR CLIENTE POR NOME ########");
+
+                ListarClientesTabela();
+
+                System.out.print("\nDigite o nome do cliente que deseja pesquisar: ");
+                String nomePesquisa = ler.nextLine();
+
+                boolean encontrado = false;
+
+                for (int lin = 0; lin < totalClientes; lin++) {
+
+                    if (lista[lin][1].toLowerCase().contains(nomePesquisa.toLowerCase())) {
+
+                        System.out.printf(
+                            "%-8s | %-18s | %-12s | %-20s | %-6s | %-15s | %-7s | %-10s%n",
+                            campos[0], campos[1], campos[2], campos[3],
+                            campos[4], campos[5], campos[6], campos[7]
+                        );
+
+                        System.out.println("---------------------------------------------------------------------------------------------------------------");
+
+                        System.out.printf(
+                            "%-8s | %-18s | %-12s | %-20s | %-6s | %-15s | %-7s | %-10s%n",
+                            lista[lin][0],
+                            lista[lin][1],
+                            lista[lin][2],
+                            lista[lin][3],
+                            lista[lin][4],
+                            lista[lin][5],
+                            lista[lin][6],
+                            lista[lin][7]
+                        );
+
+                        encontrado = true;
+                    }
+                }
+
+                if (!encontrado) {
+                    System.out.println("Nenhum cliente encontrado com o nome informado.");
+                }
             }
 
             public static void Relatorios() {
