@@ -25,6 +25,47 @@ public class menucreater {
         "Código", "cliente", "Tipo", "valor", "Status"
      };
 
+     static int qtdclientes = 0;
+     static int qtdcontatos = 0;
+
+     static void CarregarDadosTeste() {
+        String[][] dadosTeste = {
+            {"1", "João Silva", "123.456.789-00", "01/01/1990", "M", "São Paulo", "SP", "Ativo"},
+            {"2", "Maria Souza", "987.654.321-00", "15/05/1985", "F", "Rio de Janeiro", "RJ", "Ativo"},
+            {"3", "Empresa XYZ Ltda.", "12.345.678-99", "06/06/2000", "F", "Belo Horizonte", "MG", "Inativo"},
+            {"4", "Paola Souza", "sem informacao", "sem informacao", "F", "São Paulo", "SP", "inativo"}
+        };
+
+        System.out.println("\n######## ESSE TESTE NÃO CONTA COMO CLIENTE SÃO 4 FIXOS ########");
+
+        System.out.println("Carregando dados de teste...");
+
+        System.out.printf(
+            "%-8s | %-18s | %-12s | %-20s | %-6s | %-15s | %-7s | %-10s%n",
+            dadosTeste[0][0], dadosTeste[0][1], dadosTeste[0][2], dadosTeste[0][3],
+            dadosTeste[0][4], dadosTeste[0][5], dadosTeste[0][6], dadosTeste[0][7]
+        );
+        
+        System.out.printf(
+            "%-8s | %-18s | %-12s | %-20s | %-6s | %-15s | %-7s | %-10s%n",
+            dadosTeste[1][0], dadosTeste[1][1], dadosTeste[1][2], dadosTeste[1][3],
+            dadosTeste[1][4], dadosTeste[1][5], dadosTeste[1][6], dadosTeste[1][7]
+        );
+
+        System.out.printf(
+            "%-8s | %-18s | %-12s | %-20s | %-6s | %-15s | %-7s | %-10s%n",
+            dadosTeste[2][0], dadosTeste[2][1], dadosTeste[2][2], dadosTeste[2][3],
+            dadosTeste[2][4], dadosTeste[2][5], dadosTeste[2][6], dadosTeste[2][7]
+        );
+
+        System.out.printf(
+            "%-8s | %-18s | %-12s | %-20s | %-6s | %-15s | %-7s | %-10s%n",
+            dadosTeste[3][0], dadosTeste[3][1], dadosTeste[3][2], dadosTeste[3][3],
+            dadosTeste[3][4], dadosTeste[3][5], dadosTeste[3][6], dadosTeste[3][7]
+        );
+
+    }
+
     public static void main(String[] args) {
 
         Scanner ler = new Scanner(System.in);
@@ -37,12 +78,13 @@ public class menucreater {
             System.out.println("#### 1- Gerencia clientes ####");
             System.out.println("#### 2- Gerencia contatos ####");
             System.out.println("#### 3- Relatórios ####");
+            System.out.println("#### 4- Carregar dados de teste(CSV) ####");
             System.out.println("#### 0- sair ####");
 
             System.out.println("#### qual você escolhe ? ####");
             menu = ler.nextInt();
 
-            if(menu <0 || menu>3) {
+            if(menu <0 || menu>4) {
                 System.out.println("#### numero incorreto ####");
                 System.out.println("\n#############");
                 
@@ -56,6 +98,12 @@ public class menucreater {
 
             if(menu == 2) {
                 GerenciarContatos();
+            } if(menu == 3) {
+                Relatorios();
+            }
+
+            if(menu == 4) {
+                CarregarDadosTeste();
             }
 
         }while(menu !=0);
@@ -64,6 +112,8 @@ public class menucreater {
         System.out.println("######## Volte Sempre ########");
 
     }
+
+    
 
 
     public static void GerenciarClientes() {
@@ -91,10 +141,10 @@ public class menucreater {
                     IncluirCliente();
                     break;
                 case 2:
-                    ListarClientes();
+                    ListarClientesTabela();
                     break;
                 case 3:
-                    ConsultarClientePorCodigo();
+                    BuscarClientePorCodigo();
                     break;
                 case 4:
                     AlterarCliente();
@@ -103,7 +153,7 @@ public class menucreater {
                     ApagarCliente();
                     break;
                 case 6:
-                    OrdenarPorNome();
+                    OrdenarClientesPorNome();
                     break;
                 case 0:
                     System.out.println("Voltando ao menu principal...");
@@ -133,6 +183,7 @@ public class menucreater {
             }
 
             totalClientes++;
+            qtdclientes++;
 
             System.out.println("Cliente cadastrado com sucesso!");
 
@@ -142,7 +193,7 @@ public class menucreater {
         }
     }
 
-    public static void ListarClientes() {
+    public static void ListarClientesTabela() {
 
         System.out.println("\n######## LISTAR OS CLIENTES ########");
 
@@ -177,11 +228,11 @@ public class menucreater {
         }
     }
 
-   public static void ConsultarClientePorCodigo() {
+   public static void BuscarClientePorCodigo() {
 
     Scanner ler = new Scanner(System.in);
 
-    System.out.println("\n######## CONSULTAR CLIENTE ########");
+    System.out.println("\n######## BUSCAR CLIENTE ########");
 
     System.out.print("\nDigite o código do cliente: ");
     String codigo = ler.nextLine();
@@ -231,8 +282,18 @@ public class menucreater {
 
  System.out.println("\n######## ALTERAR CLIENTE ########");
 
+ ListarClientesTabela();
+
     System.out.print("\nDigite o código do cliente que deseja alterar: ");
     String codigo = ler.nextLine();
+
+    System.out.println("Você deseja alterar o cliente com código(S ou N): " + codigo);
+    String confirmacao = ler.nextLine();
+
+    if (!confirmacao.equalsIgnoreCase("S")) {
+        System.out.println("Alteração cancelada.");
+        return;
+    }
 
     boolean encontrado = false;
 
@@ -267,8 +328,18 @@ public class menucreater {
 
     System.out.println("\n######## APAGAR CLIENTE ########");
 
+    ListarClientesTabela();
+
     System.out.print("\nDigite o código do cliente que deseja apagar: ");
     String codigo = ler.nextLine();
+
+    System.out.println("Você deseja apagar o cliente com código(S ou N): " + codigo);
+    String confirmacao = ler.nextLine();
+
+    if (!confirmacao.equalsIgnoreCase("S")) {
+        System.out.println("Exclusão cancelada.");
+        return;
+    }
 
     boolean encontrado = false;
 
@@ -283,6 +354,7 @@ public class menucreater {
             lista[totalClientes - 1] = new String[8];
 
             totalClientes--;
+            qtdclientes--;
             System.out.println("Cliente apagado com sucesso!");
             encontrado = true;
             break;
@@ -294,7 +366,7 @@ public class menucreater {
     }
   }
 
-  public static void OrdenarPorNome() {
+  public static void OrdenarClientesPorNome() {
 
     if (totalClientes == 0) {
         System.out.println("Nenhum cliente cadastrado para ordenar.");
@@ -318,7 +390,7 @@ public class menucreater {
 
     System.out.println("Clientes ordenados por nome com sucesso!");
 
-    ListarClientes();
+    ListarClientesTabela();
  }
 
 
@@ -347,10 +419,10 @@ public class menucreater {
                             IncluirContato();
                             break;
                         case 2:
-                            ListarContatos();
+                            ListarContatosTabela();
                             break;
                         case 3:
-                            ConsultarContatoPorCodigo();
+                            ListarContatoPorCodigo();
                             break;
                         case 4:
                             AlterarContato();
@@ -375,6 +447,7 @@ public class menucreater {
                 String codigoCliente = ler.nextLine();
 
                 for(int lin = 0; lin < lista.length; lin++) {
+
                     if (lista[lin][0].equals(codigoCliente)) {
 
                         if (totalContatos < contatos.length) {
@@ -387,7 +460,10 @@ public class menucreater {
                             }
 
                             totalContatos++;
+                            qtdcontatos++;
+
                             System.out.println("Contato cadastrado com sucesso!");
+
                         } else {
                             System.out.println("Limite máximo de contatos atingido!");
                         }
@@ -397,9 +473,12 @@ public class menucreater {
                 System.out.println("Cliente não encontrado!");
             }
 
-            public static void ListarContatos() {
+            public static void ListarContatosTabela() {
+
                 Scanner ler = new Scanner(System.in);
+
                 System.out.println("\n######## LISTAR OS CONTATOS ########");
+
                 for(int i = 0; i < totalContatos; i++) {
                     System.out.printf(
                         "%-8s | %-18s | %-12s | %-20s | %-6s%n",
@@ -415,14 +494,17 @@ public class menucreater {
                 }
             }
 
-            public static void ConsultarContatoPorCodigo() {
+            public static void ListarContatoPorCodigo() {
                 Scanner ler = new Scanner(System.in);
+
                 System.out.println("\n######## CONSULTAR CONTATO ########");
                 System.out.print("\nDigite o código do contato: ");
                 String codigo = ler.nextLine();
 
                 for (int i = 0; i < totalContatos; i++) {
+
                     if (contatos[i][0].equals(codigo)) {
+
                         System.out.printf(
                             "%-8s | %-18s | %-12s | %-20s | %-6s%n",
                             camposContatos[0], camposContatos[1], camposContatos[2], camposContatos[3], camposContatos[4]
@@ -441,9 +523,21 @@ public class menucreater {
             public static void AlterarContato() {
                 
                 Scanner ler = new Scanner(System.in);
+                
                 System.out.println("\n######## ALTERAR CONTATO ########");
+
+                ListarContatosTabela();
+
                 System.out.print("\nDigite o código do contato que deseja alterar: ");
                 String codigo = ler.nextLine();
+
+                System.out.println("Você deseja alterar o contato com código(S ou N): " + codigo);
+                String confirmacao = ler.nextLine();
+
+                if (!confirmacao.equalsIgnoreCase("S")) {
+                    System.out.println("Alteração cancelada.");
+                    return;
+                }
 
                 for (int i = 0; i < totalContatos; i++) {
 
@@ -471,11 +565,24 @@ public class menucreater {
                 Scanner ler = new Scanner(System.in);
 
                 System.out.println("\n######## APAGAR CONTATO ########");
+
+                ListarContatosTabela();
+
                 System.out.print("\nDigite o código do contato que deseja apagar: ");
                 String codigo = ler.nextLine();
 
+                System.out.println("Você deseja apagar o contato com código(S ou N): " + codigo);
+                String confirmacao = ler.nextLine();
+
+                if (!confirmacao.equalsIgnoreCase("S")) {
+                    System.out.println("Exclusão cancelada.");
+                    ler.close();
+                    return;
+                }
+
                 for (int i = 0; i < totalContatos; i++) {
                     if (contatos[i][0].equals(codigo)) {
+                        qtdcontatos--;
                         for (int j = 0; j < 5; j++) {
                             contatos[i][j] = "";
                         }
@@ -484,7 +591,23 @@ public class menucreater {
                     }
                 }
                 System.out.println("Contato não encontrado!");
+                ler.close();
             }
 
-}
+            public static void Relatorios() {
+                System.out.println("\n######## RELATÓRIOS ########");
+                int mediaclientescontatos = 0;
+                int clietessemcontatos = 0;
+                    mediaclientescontatos = qtdcontatos / qtdclientes;
+                    clietessemcontatos = qtdclientes - qtdcontatos;
+                      
+                    System.out.println("Quantidade de clientes cadastrados: " + qtdclientes);
+                    System.out.println("Quantidade de contatos cadastrados: " + qtdcontatos);
+                    System.out.println("Média de contatos por cliente: " + mediaclientescontatos);
+                    System.out.println("Quantidade de clientes sem contatos: " + clietessemcontatos);
+                 
+            }
+
+        }
+
 
