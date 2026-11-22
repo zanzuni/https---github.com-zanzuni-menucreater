@@ -19,6 +19,7 @@ public class menucreater {
 
      static int totalContatos = 0;
 
+
     static String[][] contatos = new String[10][5];
 
     static String[] camposContatos = {
@@ -190,6 +191,7 @@ public class menucreater {
         } else {
 
             System.out.println("Limite máximo de 10 clientes atingido!");
+            aumentarMatrizClientes();
         }
     }
 
@@ -466,6 +468,7 @@ public class menucreater {
 
                         } else {
                             System.out.println("Limite máximo de contatos atingido!");
+                            aumentarMatrizContatos();
                         }
                         return;
                     }
@@ -606,6 +609,26 @@ public class menucreater {
                     System.out.println("Média de contatos por cliente: " + mediaclientescontatos);
                     System.out.println("Quantidade de clientes sem contatos: " + clietessemcontatos);
                  
+            }
+
+            public static void aumentarMatrizClientes() {
+                String[][] novaLista = new String[lista.length * 2][8];
+                for (int i = 0; i < lista.length; i++) {
+                    for (int j = 0; j < 8; j++) {
+                        novaLista[i][j] = lista[i][j];
+                    }
+                }
+                lista = novaLista;
+            }
+
+            public static void aumentarMatrizContatos() {
+                String[][] novaLista = new String[contatos.length * 2][5];
+                for (int i = 0; i < contatos.length; i++) {
+                    for (int j = 0; j < 5; j++) {
+                        novaLista[i][j] = contatos[i][j];
+                    }
+                }
+                contatos = novaLista;
             }
 
         }
