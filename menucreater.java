@@ -127,13 +127,16 @@ public class menucreater {
             System.out.println("#### 4 - Alterar cliente ####");
             System.out.println("#### 5 - Apagar cliente ####");
             System.out.println("#### 6 - Ordenar clientes por nome ####");
-            System.out.println("#### 7 - pesquisar cliente por nome ####"); 
+            System.out.println("#### 7 - pesquisar cliente por nome ####");
+            System.out.println("#### 8 - Reativar cliente ####");
+            System.out.println("#### 9 - Inativar cliente ####");
+            System.out.println("#### 10 - Validar CPF por tamanho ####");
             System.out.println("#### 0 - Voltar ####");
 
             System.out.println("#### qual você escolhe ? ####");
             clientes = ler.nextInt();
 
-            if(clientes <0 || clientes>7) {
+            if(clientes <0 || clientes>9) {
                 System.out.println("#### numero incorreto ####");
                 System.out.println("\n#############");
                 
@@ -159,6 +162,12 @@ public class menucreater {
                     break;
                 case 7:
                     PesquisarClientePorNome();
+                    break;
+                case 8:
+                    ReativarCliente();
+                    break;
+                case 9:
+                    InativarCliente();
                     break;
                 case 0:
                     System.out.println("Voltando ao menu principal...");
@@ -718,6 +727,63 @@ public class menucreater {
                 contatos = novaLista;
             }
 
+public static void ReativarCliente() {
+    Scanner ler = new Scanner(System.in);
+
+    System.out.println("\n######## REATIVAR CLIENTE ########");
+
+    System.out.print("\nDigite o código do cliente que deseja reativar: ");
+    String codigo = ler.nextLine();
+
+    for (int lin = 0; lin < totalClientes; lin++) {
+        if (lista[lin][0].equals(codigo)) {
+            if (lista[lin][7].equalsIgnoreCase("Inativo")) {
+                lista[lin][7] = "Ativo";
+                System.out.println("Cliente reativado com sucesso!");
+            } else {
+                System.out.println("O cliente já está ativo.");
+            }
+            return;
         }
+    }
+}
+
+public static void InativarCliente() {
+    Scanner ler = new Scanner(System.in);
+
+    System.out.println("\n######## INATIVAR CLIENTE ########");
+
+    System.out.print("\nDigite o código do cliente que deseja inativar: ");
+    String codigo = ler.nextLine();
+
+    for (int i = 0; i < totalClientes; i++) {
+        if (lista[i][0].equals(codigo)) {
+            if (lista[i][7].equalsIgnoreCase("Ativo")) {
+                lista[i][7] = "Inativo";
+                System.out.println("Cliente inativado com sucesso!");
+            } else {
+                System.out.println("O cliente já está inativo.");
+            }
+            return;
+        }
+    }
+}
+
+public static void ValidarCPFPorTamanho() {
+    Scanner ler = new Scanner(System.in);
+
+    System.out.println("\n######## VALIDAR CPF POR TAMANHO ########");
+
+    System.out.print("\nDigite o CPF do cliente: ");
+    String cpf = ler.nextLine();
+
+    if (cpf.length() == 11) {
+        System.out.println("CPF válido.");
+    } else {
+        System.out.println("CPF inválido. O CPF deve ter 11 dígitos.");
+    }
+}
 
 
+
+}
